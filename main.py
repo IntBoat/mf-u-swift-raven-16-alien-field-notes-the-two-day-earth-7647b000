@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-"""Alien Field Notes: The Two Day Earth Review (make.fun).
+"""Alien Field Notes: The Two Day Earth Review — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one line, an alien tourist's review of planet
-Earth -- to /output/entry.txt, where the sealed scorer reads it.
-One line, no trailing newline.
-"""
+ENTRY = "Earth: stunning views, generous hosts, but the Wi-Fi password is a state secret and the locals queue for everything. Three stars."
 
-import os
-
-TEXT = "Earth: the locals worship glowing rectangles, drink bean water to stay awake, and still queue politely for everything. Three stars \u2014 would orbit again."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
